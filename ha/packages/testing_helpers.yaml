@@ -1,0 +1,36 @@
+# =============================================================================
+# Testing helpers — mock sensors for running the controller without hardware
+# =============================================================================
+# These input_number entities survive HA restarts.
+# Set values via HA UI or via test_scenarios.py.
+#
+# To use: set shelly.entity_id to input_number.mock_grid_power in config.yaml
+#         and battery SoC entities to input_number.mock_soc_1 / mock_soc_2
+# =============================================================================
+
+input_number:
+  mock_grid_power:
+    name: "Mock Grid Power"
+    min: -5000
+    max: 5000
+    step: 10
+    unit_of_measurement: "W"
+    icon: mdi:transmission-tower
+
+  mock_soc_1:
+    name: "Mock Battery 1 SoC"
+    min: 0
+    max: 100
+    step: 1
+    unit_of_measurement: "%"
+    icon: mdi:battery
+    initial: 60
+
+  mock_soc_2:
+    name: "Mock Battery 2 SoC"
+    min: 0
+    max: 100
+    step: 1
+    unit_of_measurement: "%"
+    icon: mdi:battery
+    initial: 40

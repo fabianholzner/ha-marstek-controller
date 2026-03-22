@@ -1,0 +1,51 @@
+# =============================================================================
+# Marstek Dual Battery Controller — Configuration Template
+# =============================================================================
+# Copy this file to config.yaml and fill in your values, then run:
+#   python deploy.py
+# =============================================================================
+
+# ── Home Assistant connection ─────────────────────────────────────────────────
+homeassistant:
+  url: http://homeassistant.local:8123
+  token: YOUR_LONG_LIVED_TOKEN   # HA → Profile → Security → Create Token
+
+# ── Batteries ─────────────────────────────────────────────────────────────────
+batteries:
+  - id: marstek_1
+    name: "Marstek 1"
+    ip: 192.168.1.XXX      # static IP assigned in your router
+    port: 502
+    slave: 1
+
+  - id: marstek_2
+    name: "Marstek 2"
+    ip: 192.168.1.XXX
+    port: 502
+    slave: 1
+
+  # Optional third battery — uncomment to enable
+  # - id: marstek_3
+  #   name: "Marstek 3"
+  #   ip: 192.168.1.XXX
+  #   port: 502
+  #   slave: 1
+
+# ── Shelly Pro 3EM ────────────────────────────────────────────────────────────
+shelly:
+  # Find in HA → Settings → Devices & Services → Shelly → Entities
+  # For testing without hardware, use: sensor.mock_grid_power
+  entity_id: sensor.shelly_pro3em_REPLACE_ME_total_active_power
+  # 1  = positive means importing FROM grid (most common)
+  # -1 = positive means exporting TO grid
+  power_sign: 1
+
+# ── Controller tuning ─────────────────────────────────────────────────────────
+controller:
+  poll_interval: 1    # seconds between control cycles
+  deadband_w: 50      # ignore grid fluctuations smaller than this (W)
+  min_soc: 15         # never discharge below this level (%)
+  max_soc: 95         # never charge above this level (%)
+  watchdog_cycles: 10         # stop batteries after this many consecutive unavailable readings (grid or SoC)
+  remote_control_interval: 300  # re-send remote control enable every N seconds (handles battery reboots)
+  modbus_scan_interval: 5     # how often HA polls Modbus sensors (seconds)

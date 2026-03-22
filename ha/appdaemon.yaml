@@ -1,0 +1,21 @@
+appdaemon:
+  time_zone: Europe/Berlin      # set your timezone
+  latitude: 0.0                 # set your latitude
+  longitude: 0.0                # set your longitude
+  elevation: 0                  # set your elevation (metres)
+  plugins:
+    HASS:
+      type: hass
+
+http:
+  url: http://127.0.0.1:5050
+
+logs:
+  main_log:
+    log_level: INFO
+  error_log:
+    log_level: WARNING
+  apps_log:
+    log_level: DEBUG
+  diag_log:
+    log_level: WARNING
